@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sepansar | Official Developer Hub</title>
+    <title>Sajad Jafari | Sepansar</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet" type="text/css" />
@@ -157,7 +157,7 @@
 
     <main class="relative z-20 w-full max-w-3xl mx-auto px-5 py-8 flex flex-col items-center space-y-8">
 
-        <div class="w-full flex flex-col items-center text-center space-y-4">
+        <div class="w-full flex flex-col items-center text-center space-y-6">
             
             <div class="relative group animate-float">
                 <div class="absolute -inset-1.5 bg-gradient-to-r from-cyan-500 via-indigo-500 to-fuchsia-600 rounded-2xl blur-xl opacity-75 group-hover:opacity-100 transition duration-500"></div>
@@ -166,24 +166,14 @@
                     <div class="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-cyan-400 to-transparent"></div>
                     
                     <span class="font-logo font-black text-3xl sm:text-4xl tracking-[0.2em] text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 via-sky-100 to-indigo-300 neon-logo">
-                        SEPANSAR
+                        SAJAD JAFARI
                     </span>
                     <div class="flex items-center gap-2 mt-1.5">
                         <span class="h-[1px] w-8 bg-cyan-500/50"></span>
-                        <span class="font-mono text-[10px] uppercase tracking-[0.3em] text-cyan-400 font-bold">SOFTWARE &amp; MEDIA</span>
+                        <span class="font-mono text-[10px] uppercase tracking-[0.3em] text-cyan-400 font-bold">BRAND: SEPANSAR</span>
                         <span class="h-[1px] w-8 bg-cyan-500/50"></span>
                     </div>
                 </div>
-            </div>
-
-            <div class="space-y-1.5">
-                <h1 class="text-3xl sm:text-4xl font-extrabold tracking-tight text-white flex items-center justify-center gap-3">
-                    <span id="profile-name" class="cursor-pointer" data-original="سپنسار">سپنسار</span>
-                    <span class="text-[11px] font-mono text-cyan-300 border border-cyan-500/40 px-2 py-0.5 rounded bg-cyan-950/60 shadow-[0_0_10px_rgba(6,182,212,0.2)]">OFFICIAL</span>
-                </h1>
-                <p class="text-xs font-mono text-slate-400" id="profile-tagline">
-                    پلتفرم رسمی توسعه نرم‌افزار، هوش مصنوعی و اتوماسیون
-                </p>
             </div>
 
             <div class="w-full max-w-xl hud-border rounded-xl p-4 font-mono text-left text-xs shadow-2xl relative" dir="ltr">
@@ -366,38 +356,12 @@
             if (el) el.textContent = ping + 'ms';
         }, 3000);
 
-        const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%&*";
-        function scrambleText(element, targetText) {
-            let iteration = 0;
-            const interval = setInterval(() => {
-                element.innerText = targetText
-                    .split("")
-                    .map((char, index) => {
-                        if (index < iteration) {
-                            return targetText[index];
-                        }
-                        return letters[Math.floor(Math.random() * letters.length)];
-                    })
-                    .join("");
-
-                if (iteration >= targetText.length) {
-                    clearInterval(interval);
-                }
-                iteration += 1 / 2;
-            }, 30);
-        }
-
-        const nameElement = document.getElementById('profile-name');
-        nameElement.addEventListener('mouseenter', () => {
-            scrambleText(nameElement, currentLang === 'fa' ? 'سپنسار' : 'Sepansar');
-        });
-
         const terminalContent = {
             fa: [
                 { main: "به سپنسار خوش آمدید 🚀", sub: "توسعه نرم‌افزار، هوش مصنوعی و راهکارهای نوین اتوماسیون" },
                 { main: "پلتفرم رسمی برند Sepansar 💻", sub: "مرجع انتشار پروژه‌ها، ابزارهای کاربردی و محتوای تخصصی" },
                 { main: "توسعه ابزارهای مدرن و بک‌اند ⚙️", sub: "طراحی سیستم‌های خودکارسازی داده، هوش مصنوعی و بات‌ها" },
-                { main: "ارتباط و همکاری‌های تجاری 🤝", sub: "از طریق ایمیل یا لینک‌های زیر در تلگرام با ما در ارتباط باشید" }
+                { main: "ارتباط و همکاری‌های کاری 🤝", sub: "از طریق ایمیل یا لینک‌های زیر در تلگرام با ما در ارتباط باشید" }
             ],
             en: [
                 { main: "Welcome to Sepansar 🚀", sub: "Software Engineering, AI Solutions & Workflow Automation" },
@@ -413,8 +377,6 @@
                 font: 'font-vazir',
                 switchLabel: 'EN',
                 headerStatus: 'آنلاین // در دسترس',
-                name: 'سپنسار',
-                tagline: 'پلتفرم رسمی توسعه نرم‌افزار، هوش مصنوعی و اتوماسیون',
                 ytTitle: 'کانال یوتیوب',
                 ghTitle: 'مخازن گیت‌هاب',
                 tgTitle: 'کانال تلگرام',
@@ -427,8 +389,6 @@
                 font: 'font-sans',
                 switchLabel: 'فا',
                 headerStatus: 'ONLINE // READY',
-                name: 'Sepansar',
-                tagline: 'Official Hub for Software Engineering, AI & Automation',
                 ytTitle: 'YouTube Channel',
                 ghTitle: 'GitHub Repositories',
                 tgTitle: 'Telegram Channel',
@@ -457,9 +417,6 @@
 
             document.getElementById('lang-switch-text').textContent = data.switchLabel;
             document.getElementById('header-status').textContent = data.headerStatus;
-            
-            scrambleText(document.getElementById('profile-name'), data.name);
-            document.getElementById('profile-tagline').innerHTML = data.tagline;
 
             document.getElementById('link-yt-title').textContent = data.ytTitle;
             document.getElementById('link-gh-title').textContent = data.ghTitle;
