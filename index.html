@@ -1,105 +1,346 @@
 <!DOCTYPE html>
-<html lang="fa" dir="rtl">
+<html lang="fa" dir="rtl" class="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sepansar | سپنسار</title>
+    <title>Sepansar | Sajad Jafari</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet" type="text/css" />
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700;800&family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        vazir: ['Vazirmatn', 'sans-serif'],
+                        mono: ['"JetBrains Mono"', 'monospace'],
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                    },
+                    animation: {
+                        'gradient-x': 'gradient-x 8s ease infinite',
+                        'pulse-glow': 'pulse-glow 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'scanline': 'scanline 8s linear infinite',
+                    },
+                    keyframes: {
+                        'gradient-x': {
+                            '0%, 100%': { 'background-size': '200% 200%', 'background-position': 'left center' },
+                            '50%': { 'background-size': '200% 200%', 'background-position': 'right center' },
+                        },
+                        'pulse-glow': {
+                            '0%, 100%': { opacity: '0.4', transform: 'scale(1)' },
+                            '50%': { opacity: '0.8', transform: 'scale(1.05)' },
+                        },
+                        'scanline': {
+                            '0%': { transform: 'translateY(-100%)' },
+                            '100%': { transform: 'translateY(1000%)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
     <style>
-        body { font-family: 'Vazirmatn', sans-serif; }
+        .cyber-grid {
+            background-image: radial-gradient(rgba(56, 189, 248, 0.08) 1px, transparent 0);
+            background-size: 32px 32px;
+        }
+        .code-glow {
+            text-shadow: 0 0 20px rgba(56, 189, 248, 0.4);
+        }
+        .glass-panel {
+            background: rgba(13, 18, 30, 0.7);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.07);
+        }
+        .glass-panel:hover {
+            border-color: rgba(56, 189, 248, 0.3);
+            box-shadow: 0 0 30px -10px rgba(56, 189, 248, 0.15);
+        }
+        .cursor-blink {
+            animation: blink 1s infinite;
+        }
+        @keyframes blink {
+            0%, 49% { opacity: 1; }
+            50%, 100% { opacity: 0; }
+        }
     </style>
 </head>
-<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col items-center justify-between p-4 selection:bg-cyan-500 selection:text-white">
+<body class="bg-[#060913] text-slate-200 min-h-screen relative overflow-x-hidden font-vazir selection:bg-cyan-500 selection:text-slate-950 flex flex-col justify-between">
 
-    <main class="w-full max-w-xl mx-auto flex flex-col items-center pt-10 pb-6 space-y-6">
-        
-        <div class="flex flex-col items-center text-center space-y-3">
-            <div class="w-24 h-24 rounded-3xl bg-gradient-to-tr from-cyan-500 to-indigo-600 p-[2px] shadow-lg shadow-cyan-500/20">
-                <div class="w-full h-full bg-slate-900 rounded-[22px] flex items-center justify-center text-3xl font-black text-cyan-400">
-                    S
+    <div class="fixed inset-0 cyber-grid pointer-events-none z-0"></div>
+    <div class="fixed top-[-10%] left-1/2 -translate-x-1/2 w-[700px] h-[350px] bg-gradient-to-r from-cyan-600/20 via-blue-600/20 to-indigo-600/20 blur-[130px] rounded-full pointer-events-none animate-pulse-glow z-0"></div>
+
+    <header class="relative z-20 w-full max-w-4xl mx-auto px-6 pt-6 flex justify-between items-center">
+        <div class="flex items-center gap-2.5 font-mono text-xs text-slate-400 bg-slate-900/80 border border-slate-800 px-3.5 py-1.5 rounded-full backdrop-blur-md">
+            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+            <span class="text-emerald-400 font-semibold font-mono">STATUS:</span>
+            <span id="header-status">READY // DEPLOYED</span>
+        </div>
+
+        <button onclick="toggleLang()" class="group relative px-4 py-2 rounded-xl glass-panel text-xs font-mono font-bold tracking-wider hover:border-cyan-500/50 transition-all duration-300 flex items-center gap-2">
+            <i class="fa-solid fa-language text-cyan-400 group-hover:rotate-180 transition-transform duration-500"></i>
+            <span id="lang-switch-text" class="text-slate-200">EN</span>
+        </button>
+    </header>
+
+    <main class="relative z-10 w-full max-w-3xl mx-auto px-5 py-10 flex flex-col items-center space-y-10">
+
+        <div class="w-full flex flex-col items-center text-center space-y-5">
+            <div class="relative group">
+                <div class="absolute -inset-1.5 bg-gradient-to-r from-cyan-500 via-indigo-500 to-purple-600 rounded-3xl blur-md opacity-70 group-hover:opacity-100 transition duration-1000 group-hover:duration-200 animate-gradient-x"></div>
+                <div class="relative w-24 h-24 rounded-2xl bg-[#090d1a] border border-slate-700/80 flex flex-col items-center justify-center p-2 shadow-2xl">
+                    <i class="fa-solid fa-terminal text-3xl bg-gradient-to-tr from-cyan-400 to-blue-500 bg-clip-text text-transparent mb-1"></i>
+                    <span class="text-[10px] font-mono tracking-widest text-cyan-400 font-bold">SEPANSAR</span>
                 </div>
             </div>
-            <h1 class="text-2xl font-bold tracking-tight">سپنسار | Sepansar</h1>
-            <p class="text-sm text-slate-400 max-w-sm">
-                پلتفرم رسمی توسعه نرم‌افزار، پروژه‌های اتوماسیون و رسانه اختصاصی
-            </p>
-            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-900 border border-slate-800 text-xs text-emerald-400">
-                <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-                Official Hub & Identity
+
+            <div class="space-y-2">
+                <h1 class="text-3xl sm:text-4xl font-extrabold tracking-tight text-white flex items-center justify-center gap-3">
+                    <span id="profile-name">سجاد جعفری</span>
+                    <span class="text-xs font-mono font-normal text-cyan-400 border border-cyan-500/30 px-2.5 py-0.5 rounded-md bg-cyan-950/40">DEV</span>
+                </h1>
+                <p class="text-sm font-mono text-slate-400" id="profile-tagline">
+                    Brand: <span class="text-cyan-400 font-bold">Sepansar</span> (سپنسار)
+                </p>
+            </div>
+
+            <div class="w-full max-w-lg glass-panel rounded-xl p-3.5 font-mono text-left text-xs border border-slate-800 shadow-2xl relative overflow-hidden" dir="ltr">
+                <div class="flex items-center gap-1.5 pb-2.5 border-b border-slate-800/80 mb-2.5">
+                    <div class="w-2.5 h-2.5 rounded-full bg-rose-500/80"></div>
+                    <div class="w-2.5 h-2.5 rounded-full bg-amber-500/80"></div>
+                    <div class="w-2.5 h-2.5 rounded-full bg-emerald-500/80"></div>
+                    <span class="ml-2 text-[10px] text-slate-500">bash — sepansar@core</span>
+                </div>
+                <div class="text-slate-300">
+                    <span class="text-cyan-400">root@sepansar</span>:<span class="text-indigo-400">~</span>$ <span id="typewriter-text" class="text-emerald-400 font-semibold"></span><span class="cursor-blink text-cyan-400 font-bold">_</span>
+                </div>
             </div>
         </div>
 
-        <div class="w-full space-y-3.5 pt-2">
+        <div class="w-full space-y-3.5">
 
             <a href="https://youtube.com/@sepansar" target="_blank" rel="noopener noreferrer" 
-               class="group flex items-center justify-between p-4 rounded-2xl bg-slate-900/60 border border-slate-800/80 hover:border-red-500/50 hover:bg-slate-900/90 transition-all duration-200">
-                <div class="flex items-center gap-3.5">
-                    <div class="w-10 h-10 rounded-xl bg-red-500/10 text-red-500 flex items-center justify-center text-xl group-hover:scale-110 transition-transform">
+               class="group glass-panel p-4 rounded-2xl flex items-center justify-between transition-all duration-300 transform hover:-translate-y-1 hover:border-rose-500/40">
+                <div class="flex items-center gap-4">
+                    <div class="w-12 h-12 rounded-xl bg-rose-500/10 border border-rose-500/20 text-rose-500 flex items-center justify-center text-xl group-hover:scale-110 group-hover:bg-rose-500/20 transition-all duration-300">
                         <i class="fa-brands fa-youtube"></i>
                     </div>
-                    <div class="text-right">
-                        <p class="font-semibold text-sm group-hover:text-red-400 transition-colors">کانال یوتیوب</p>
-                        <p class="text-xs text-slate-400 dir-ltr font-mono">youtube.com/@sepansar</p>
+                    <div class="text-right group-hover:text-right" id="link-yt-text-wrap">
+                        <div class="flex items-center gap-2">
+                            <span class="font-bold text-sm text-slate-100 group-hover:text-rose-400 transition-colors" id="link-yt-title">کانال یوتیوب</span>
+                            <span class="text-[9px] font-mono bg-rose-500/10 text-rose-400 border border-rose-500/30 px-1.5 py-0.2 rounded uppercase">Videos</span>
+                        </div>
+                        <p class="text-xs text-slate-400 font-mono mt-0.5 dir-ltr">youtube.com/@sepansar</p>
                     </div>
                 </div>
-                <i class="fa-solid fa-arrow-left text-xs text-slate-500 group-hover:translate-x-[-4px] transition-transform"></i>
+                <div class="text-slate-600 group-hover:text-rose-400 transition-colors px-2">
+                    <i class="fa-solid fa-code-merge text-sm"></i>
+                </div>
             </a>
 
             <a href="https://github.com/sepansarr" target="_blank" rel="noopener noreferrer" 
-               class="group flex items-center justify-between p-4 rounded-2xl bg-slate-900/60 border border-slate-800/80 hover:border-cyan-500/50 hover:bg-slate-900/90 transition-all duration-200">
-                <div class="flex items-center gap-3.5">
-                    <div class="w-10 h-10 rounded-xl bg-slate-800 text-white flex items-center justify-center text-xl group-hover:scale-110 transition-transform">
+               class="group glass-panel p-4 rounded-2xl flex items-center justify-between transition-all duration-300 transform hover:-translate-y-1 hover:border-cyan-500/40">
+                <div class="flex items-center gap-4">
+                    <div class="w-12 h-12 rounded-xl bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 flex items-center justify-center text-xl group-hover:scale-110 group-hover:bg-cyan-500/20 transition-all duration-300">
                         <i class="fa-brands fa-github"></i>
                     </div>
-                    <div class="text-right">
-                        <p class="font-semibold text-sm group-hover:text-cyan-400 transition-colors">مخازن گیت‌هاب</p>
-                        <p class="text-xs text-slate-400 dir-ltr font-mono">github.com/sepansarr</p>
+                    <div class="text-right" id="link-gh-text-wrap">
+                        <div class="flex items-center gap-2">
+                            <span class="font-bold text-sm text-slate-100 group-hover:text-cyan-400 transition-colors" id="link-gh-title">مخازن گیت‌هاب</span>
+                            <span class="text-[9px] font-mono bg-cyan-500/10 text-cyan-400 border border-cyan-500/30 px-1.5 py-0.2 rounded uppercase">Source</span>
+                        </div>
+                        <p class="text-xs text-slate-400 font-mono mt-0.5 dir-ltr">github.com/sepansarr</p>
                     </div>
                 </div>
-                <i class="fa-solid fa-arrow-left text-xs text-slate-500 group-hover:translate-x-[-4px] transition-transform"></i>
+                <div class="text-slate-600 group-hover:text-cyan-400 transition-colors px-2">
+                    <i class="fa-solid fa-terminal text-sm"></i>
+                </div>
             </a>
 
             <a href="https://t.me/sepansarr" target="_blank" rel="noopener noreferrer" 
-               class="group flex items-center justify-between p-4 rounded-2xl bg-slate-900/60 border border-slate-800/80 hover:border-sky-400/50 hover:bg-slate-900/90 transition-all duration-200">
-                <div class="flex items-center gap-3.5">
-                    <div class="w-10 h-10 rounded-xl bg-sky-500/10 text-sky-400 flex items-center justify-center text-xl group-hover:scale-110 transition-transform">
+               class="group glass-panel p-4 rounded-2xl flex items-center justify-between transition-all duration-300 transform hover:-translate-y-1 hover:border-sky-500/40">
+                <div class="flex items-center gap-4">
+                    <div class="w-12 h-12 rounded-xl bg-sky-500/10 border border-sky-500/20 text-sky-400 flex items-center justify-center text-xl group-hover:scale-110 group-hover:bg-sky-500/20 transition-all duration-300">
                         <i class="fa-brands fa-telegram"></i>
                     </div>
-                    <div class="text-right">
-                        <p class="font-semibold text-sm group-hover:text-sky-400 transition-colors">کانال تلگرام</p>
-                        <p class="text-xs text-slate-400 dir-ltr font-mono">t.me/sepansarr</p>
+                    <div class="text-right" id="link-tg-text-wrap">
+                        <div class="flex items-center gap-2">
+                            <span class="font-bold text-sm text-slate-100 group-hover:text-sky-400 transition-colors" id="link-tg-title">کانال تلگرام</span>
+                            <span class="text-[9px] font-mono bg-sky-500/10 text-sky-400 border border-sky-500/30 px-1.5 py-0.2 rounded uppercase">Community</span>
+                        </div>
+                        <p class="text-xs text-slate-400 font-mono mt-0.5 dir-ltr">t.me/sepansarr</p>
                     </div>
                 </div>
-                <i class="fa-solid fa-arrow-left text-xs text-slate-500 group-hover:translate-x-[-4px] transition-transform"></i>
+                <div class="text-slate-600 group-hover:text-sky-400 transition-colors px-2">
+                    <i class="fa-solid fa-paper-plane text-sm"></i>
+                </div>
             </a>
 
             <a href="mailto:info@sepansar.com" 
-               class="group flex items-center justify-between p-4 rounded-2xl bg-slate-900/60 border border-slate-800/80 hover:border-emerald-500/50 hover:bg-slate-900/90 transition-all duration-200">
-                <div class="flex items-center gap-3.5">
-                    <div class="w-10 h-10 rounded-xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center text-xl group-hover:scale-110 transition-transform">
-                        <i class="fa-solid fa-envelope"></i>
+               class="group glass-panel p-4 rounded-2xl flex items-center justify-between transition-all duration-300 transform hover:-translate-y-1 hover:border-emerald-500/40">
+                <div class="flex items-center gap-4">
+                    <div class="w-12 h-12 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 flex items-center justify-center text-xl group-hover:scale-110 group-hover:bg-emerald-500/20 transition-all duration-300">
+                        <i class="fa-solid fa-envelope-open-text"></i>
                     </div>
-                    <div class="text-right">
-                        <p class="font-semibold text-sm group-hover:text-emerald-400 transition-colors">ارتباط مستقیم کاری</p>
-                        <p class="text-xs text-slate-400">ارسال پیام ایمیل</p>
+                    <div class="text-right" id="link-mail-text-wrap">
+                        <div class="flex items-center gap-2">
+                            <span class="font-bold text-sm text-slate-100 group-hover:text-emerald-400 transition-colors" id="link-mail-title">ارتباط رسمی و تجاری</span>
+                            <span class="text-[9px] font-mono bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 px-1.5 py-0.2 rounded uppercase">Contact</span>
+                        </div>
+                        <p class="text-xs text-slate-400 font-mono mt-0.5 dir-ltr">info@sepansar.com</p>
                     </div>
                 </div>
-                <i class="fa-solid fa-arrow-left text-xs text-slate-500 group-hover:translate-x-[-4px] transition-transform"></i>
+                <div class="text-slate-600 group-hover:text-emerald-400 transition-colors px-2">
+                    <i class="fa-solid fa-bolt text-sm"></i>
+                </div>
             </a>
 
         </div>
 
-        <div class="w-full p-4 rounded-2xl bg-slate-900/30 border border-slate-800/40 text-xs text-slate-400 text-center leading-relaxed">
-            <span class="font-semibold text-slate-300">Sepansar (سپنسار)</span> نشان تجاری مستقل برای توسعه پروژه‌های نرم‌افزاری و تولید محتواست. کلیه کانال‌های رسمی انحصاراً از طریق این درگاه معرفی و تأیید می‌شوند.
+        <div class="w-full glass-panel rounded-2xl p-5 border border-slate-800/80 text-center space-y-2 relative overflow-hidden">
+            <div class="text-xs text-cyan-400 font-mono font-semibold" id="about-badge">IDENTITY // VERIFICATION</div>
+            <p class="text-xs text-slate-400 leading-relaxed font-mono" id="about-text">
+                برند <span class="text-white font-bold">سپنسار (Sepansar)</span> نام تجاری و فنی پروژه‌ها و نرم‌افزارهای توسعه داده شده توسط <span class="text-slate-200 font-bold">سجاد جعفری</span> می‌باشد. تمام فعالیت‌ها و کانال‌های ارتباطی معتبر فقط از طریق این درگاه تصدیق می‌شوند.
+            </p>
         </div>
 
     </main>
 
-    <footer class="w-full text-center py-4 border-t border-slate-900 text-slate-500 text-xs font-mono">
-        © 2026 Sepansar. All rights reserved.
+    <footer class="relative z-10 w-full text-center py-6 border-t border-slate-900/80 text-slate-500 text-xs font-mono flex flex-col items-center gap-1.5">
+        <p>© 2026 <span class="text-slate-400 font-semibold">Sepansar</span>. Built by Sajad Jafari.</p>
+        <p class="text-[10px] text-slate-600">ALL RIGHTS RESERVED // HOSTED ON DISTRIBUTED EDGE</p>
     </footer>
 
+    <script>
+        const i18n = {
+            fa: {
+                dir: 'rtl',
+                font: 'font-vazir',
+                switchLabel: 'EN',
+                headerStatus: 'آنلاین // مستقر شده',
+                name: 'سجاد جعفری',
+                tagline: 'برند رسمی: <span class="text-cyan-400 font-bold">سپنسار</span> (Sepansar)',
+                ytTitle: 'کانال یوتیوب',
+                ghTitle: 'مخازن گیت‌هاب',
+                tgTitle: 'کانال تلگرام',
+                mailTitle: 'ارتباط رسمی و تجاری',
+                aboutBadge: 'تأییدیه هویت // IDENTITY',
+                aboutText: 'برند <span class="text-white font-bold">سپنسار (Sepansar)</span> نام تجاری و فنی پروژه‌ها و نرم‌افزارهای توسعه داده شده توسط <span class="text-slate-200 font-bold">سجاد جعفری</span> می‌باشد. تمام فعالیت‌ها و کانال‌های ارتباطی معتبر فقط از طریق این درگاه تصدیق می‌شوند.',
+                typewriter: [
+                    "init software_engineer --author 'Sajad Jafari'",
+                    "loading brand identity: Sepansar...",
+                    "status: exploring AI, Data & Automation...",
+                    "ready to deploy robust architectures."
+                ]
+            },
+            en: {
+                dir: 'ltr',
+                font: 'font-sans',
+                switchLabel: 'فا',
+                headerStatus: 'ONLINE // DEPLOYED',
+                name: 'Sajad Jafari',
+                tagline: 'Official Brand: <span class="text-cyan-400 font-bold">Sepansar</span>',
+                ytTitle: 'YouTube Channel',
+                ghTitle: 'GitHub Repositories',
+                tgTitle: 'Telegram Channel',
+                mailTitle: 'Direct Business Email',
+                aboutBadge: 'OFFICIAL IDENTITY // VERIFICATION',
+                aboutText: '<span class="text-white font-bold">Sepansar</span> is the official tech and development identity for software solutions, automation pipelines, and engineering media created by <span class="text-slate-200 font-bold">Sajad Jafari</span>. All authentic platforms are exclusively verified through this terminal.',
+                typewriter: [
+                    "init software_engineer --author 'Sajad Jafari'",
+                    "loading brand identity: Sepansar...",
+                    "status: exploring AI, Data & Automation...",
+                    "ready to deploy robust architectures."
+                ]
+            }
+        };
+
+        let currentLang = 'fa';
+
+        function toggleLang() {
+            currentLang = currentLang === 'fa' ? 'en' : 'fa';
+            const data = i18n[currentLang];
+
+            document.documentElement.dir = data.dir;
+            document.documentElement.lang = currentLang;
+
+            if (currentLang === 'en') {
+                document.body.classList.remove('font-vazir');
+                document.body.classList.add('font-sans');
+            } else {
+                document.body.classList.remove('font-sans');
+                document.body.classList.add('font-vazir');
+            }
+
+            document.getElementById('lang-switch-text').textContent = data.switchLabel;
+            document.getElementById('header-status').textContent = data.headerStatus;
+            document.getElementById('profile-name').textContent = data.name;
+            document.getElementById('profile-tagline').innerHTML = data.tagline;
+
+            document.getElementById('link-yt-title').textContent = data.ytTitle;
+            document.getElementById('link-gh-title').textContent = data.ghTitle;
+            document.getElementById('link-tg-title').textContent = data.tgTitle;
+            document.getElementById('link-mail-title').textContent = data.mailTitle;
+
+            document.getElementById('about-badge').textContent = data.aboutBadge;
+            document.getElementById('about-text').innerHTML = data.aboutText;
+
+            const textWrappers = ['link-yt-text-wrap', 'link-gh-text-wrap', 'link-tg-text-wrap', 'link-mail-text-wrap'];
+            textWrappers.forEach(id => {
+                const el = document.getElementById(id);
+                if (currentLang === 'en') {
+                    el.classList.remove('text-right');
+                    el.classList.add('text-left');
+                } else {
+                    el.classList.remove('text-left');
+                    el.classList.add('text-right');
+                }
+            });
+        }
+
+        const phrases = [
+            "whoami: Sajad Jafari // Brand: Sepansar",
+            "stack: Software Engineering, AI & Automation",
+            "git push origin master --force-identity",
+            "status: building scalable innovations..."
+        ];
+
+        let phraseIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+        const targetElement = document.getElementById("typewriter-text");
+
+        function type() {
+            const currentPhrase = phrases[phraseIndex];
+            
+            if (isDeleting) {
+                targetElement.textContent = currentPhrase.substring(0, charIndex - 1);
+                charIndex--;
+            } else {
+                targetElement.textContent = currentPhrase.substring(0, charIndex + 1);
+                charIndex++;
+            }
+
+            let speed = isDeleting ? 30 : 60;
+
+            if (!isDeleting && charIndex === currentPhrase.length) {
+                speed = 2000;
+                isDeleting = true;
+            } else if (isDeleting && charIndex === 0) {
+                isDeleting = false;
+                phraseIndex = (phraseIndex + 1) % phrases.length;
+                speed = 400;
+            }
+
+            setTimeout(type, speed);
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            type();
+        });
+    </script>
 </body>
 </html>
